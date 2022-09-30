@@ -1,66 +1,78 @@
-.game {
-	width: 250px;
-	margin: auto;
-	font-family: sans-serif;
-	background-color: whitesmoke;
+html, body, .root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    border:1px solid transparent;
+    font-family: sans-serif;
 }
 
-.settings-wrapper {
-	width: 100%;
-	height: 50px;
-	text-align: center;
-	margin: 30px auto 10px auto;
-	display: table;
-	background-color: #f44336;
-	color: white;
-	font-weight: bold;
-
+.root {
+    background-color: #fafafa;
 }
 
-.settings {
-	display: table-cell;
-	vertical-align: middle;
+.game-container {
+    margin: 100px auto;
+    width: fit-content;
 }
 
-.board-wrapper {
-	width: 150px;
-	margin: auto;
-	padding-bottom: 15px;
-}
-
-.status {
-	margin-bottom: 5px;
-	/*height: 50px;*/
-	text-align: center;
-	background-color: #f44336;
-	color: white;
-	line-height: 20px;
+.info {
+    font-size: 36px;
+    font-weight: 600;
+    text-align: center;
+    padding: 8px 4px;
+    color: white;
+    background-color: #333;
 }
 
 .board {
-	display: grid;
-	grid-template-rows: repeat(3,50px);
-	grid-template-columns: repeat(3,50px);
+    font-size: 64px;
+    font-weight: 600;
+    padding: 12px 0px;
+}
+
+.row {
+    display: flex;
 }
 
 .cell {
-	border: 1px solid lightgrey;
+    width: 150px;
+    height: 150px;
+    border-top: 1px solid #333;
+    border-left: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.unmarked {
-	/*background-color: lightgrey;*/
+.cell:last-child {
+    border-right: 1px solid #333;
 }
 
-.marked {
-	transition: 0.2s cubic-bezier(0.42, 0, 0.74, 2.67);
-	/*background-color: white;*/
-	text-align: center;
-	line-height: 50px;
-	font-size: 35px;
+.row:last-child .cell {
+    border-bottom: 1px solid #333;
 }
 
-.btn {
-	margin: auto;
-	width: 100%;
-	height: 30px;
+.cell {
+    background-color: white;
+    cursor: pointer;
+}
+
+.game-over .cell {
+    background-color: #ddd;
+    cursor: default;
+}
+
+.cell.marked-X {
+    color: blue;
+}
+
+.cell.marked-O {
+    color: red;
+}
+
+
+
+.controls {
+    display: flex;
+    justify-content: space-between;
 }
