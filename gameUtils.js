@@ -58,8 +58,6 @@ function getRandomMove(board, makeMove) {
   const emptyCell = getRandomEmptyCell(board);
   if (!emptyCell) throw new NoMovesError();
   return emptyCell;
-  const { i, j } = emptyCell;
-  makeMove(i, j);
 }
 
 function getMiddle() {
