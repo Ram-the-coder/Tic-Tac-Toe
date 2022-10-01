@@ -7,6 +7,15 @@ function throwIfMoveIsInvalid(gameState, i, j) {
   if (gameState.board.iterable[i][j] !== EMPTY) throw new InvalidMoveError();
 }
 
+function getEmptyCellCoordinates(board) {
+  return board.iterable
+    .map((row, i) =>
+      row
+        .map((cell, j) => ({ i, j, cell }))
+        .filter(({ cell }) => cell === EMPTY)
+    )
+    .flat();
+}
 function getRandomEmptyCell(board) {
   const emptyCells = board.getEmptyCellCoordinates();
   return getRandomElementFromArray(emptyCells);

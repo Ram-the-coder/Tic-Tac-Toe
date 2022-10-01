@@ -33,10 +33,6 @@ function createBoard(initState) {
     return newBoard;
   }
 
-  const getEmptyCellCoordinates = () => {
-    return getCells().filter(({content}) => content === EMPTY);
-  }
-
   return {
     get cells() {
       return getCells();
@@ -49,7 +45,6 @@ function createBoard(initState) {
     },
     isDraw,
     setContent,
-    getBoardAfterMove,
-    getEmptyCellCoordinates,
+    getBoardAfterMove
   };
 }
