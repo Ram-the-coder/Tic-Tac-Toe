@@ -9,8 +9,7 @@ function throwIfMoveIsInvalid(gameState, i, j) {
 
 function getRandomEmptyCell(board) {
   const emptyCells = board.getEmptyCellCoordinates();
-  cellIdx = Math.floor(Math.random() * emptyCells.length);
-  return emptyCells[cellIdx];
+  return getRandomElementFromArray(emptyCells);
 }
 
 function getTheMoveToCompleteThePattern(board, pattern) {
