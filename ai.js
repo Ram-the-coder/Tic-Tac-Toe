@@ -1,4 +1,7 @@
-const aiMoveEasy = (game) => makeRandomMove(game.state.board, game.makeMove);
+const aiMoveEasy = (game) => {
+  const { i, j } = getRandomMove(game.state.board, game.makeMove);
+  game.makeMove(i, j)
+}
 
 const aiMoveMedium = (game) =>
   selectMiddleIfPossibleElseSelectRandom(game.state.board, game.makeMove);
