@@ -11,8 +11,7 @@ function getEmptyCells(board) {
   return board.cells.filter(({ content }) => content === EMPTY);
 }
 function getRandomEmptyCell(board) {
-  const emptyCells = getEmptyCells(board);
-  return getRandomElementFromArray(emptyCells);
+  return getRandomElementFromArray(getEmptyCells(board));
 }
 
 function getTheMoveToCompleteThePattern(board, pattern) {
@@ -35,7 +34,7 @@ function getRandomMove(board) {
 
 function getMiddleIfEmptyElseGetRandom(board) {
   const { middle } = board;
-  return board.middle.content === EMPTY ? middle : getRandomMove(board);
+  return middle.content === EMPTY ? middle : getRandomMove(board);
 }
 
 function getWinningMove(board, forPlayer) {
