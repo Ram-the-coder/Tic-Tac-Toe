@@ -11,7 +11,7 @@ function createBoard(initState) {
   const getContent = ({ i, j }) => state[i][j];
 
   const getCells = () =>
-    state.map((row, i) => row.map((cell, j) => ({ cell, i, j }))).flat();
+    state.map((row, i) => row.map((content, j) => ({ content, i, j }))).flat();
 
   const getIterable = () => state;
 
@@ -22,7 +22,7 @@ function createBoard(initState) {
       )
     )[0];
 
-
+  const isDraw = () => getCells().every(({ content }) => content != EMPTY);
 
   return {
     get cells() {
@@ -33,6 +33,7 @@ function createBoard(initState) {
     },
     get winner() {
       return getWinner();
-    }
+    },
+    isDraw,
   };
 }

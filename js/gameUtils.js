@@ -1,15 +1,3 @@
-function getWinner(board) {
-  return [X, O].filter((player) =>
-    WIN_PATTERNS.some((pattern) =>
-      pattern.every(({ i, j }) => board.iterable[i][j] === player)
-    )
-  )[0];
-}
-
-function isDraw(board) {
-  return board.iterable.flat().every((cell) => cell != EMPTY);
-}
-
 function otherPlayer(player) {
   return player === X ? O : X;
 }
