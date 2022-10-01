@@ -7,41 +7,30 @@ const DIFFICULTY = {
   HARD: "2",
 };
 const LOCAL_STORAGE_KEYS = {
-  DIFFICULTY: 'difficulty'
-}
+  DIFFICULTY: "difficulty",
+};
+
 const WIN_PATTERNS = (() => {
-  const horizontalPatterns = createArray({
-    length: 3,
-    mapper: (_, i) =>
-      createArray({
-        length: 3,
-        mapper: (_, j) => ({ i, j }),
-      }),
-  });
+  const horizontalPatterns = [
+    createPattern(({ i }) => i == 0),
+    createPattern(({ i }) => i == 1),
+    createPattern(({ i }) => i == 2),
+  ];
 
-  const verticalPatterns = createArray({
-    length: 3,
-    mapper: (_, j) =>
-      createArray({
-        length: 3,
-        mapper: (_, i) => ({ i, j }),
-      }),
-  });
+  const verticalPatterns = [
+    createPattern(({ j }) => j == 0),
+    createPattern(({ j }) => j == 1),
+    createPattern(({ j }) => j == 2),
+  ];
 
-  const topLeftToBottomRightPattern = createArray({
-    length: 3,
-    mapper: (_, d) => ({ i: d, j: d }),
-  });
-
-  const topRightToBottomLeftPattern = createArray({
-    length: 3,
-    mapper: (_, d) => ({ i: d, j: 2 - d }),
-  });
+  const diagonalPatterns = [
+    createPattern(({ i, j }) => i == j),
+    createPattern(({ i, j }) => i + j == 2)
+  ]
 
   return [
     ...verticalPatterns,
     ...horizontalPatterns,
-    topLeftToBottomRightPattern,
-    topRightToBottomLeftPattern,
+    ...diagonalPatterns
   ];
 })();

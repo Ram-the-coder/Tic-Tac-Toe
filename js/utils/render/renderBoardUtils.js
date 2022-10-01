@@ -1,34 +1,29 @@
-function createCellElement(coords, props) {
+function createCellsForRow(i, props) {
   const {
     gameState: { board },
     handlers: { handleClick },
   } = props;
-  const cell = document.createElement("div");
-  setClasslist(cell, ["cell", `marked-${board.getContent(coords)}`]);
-  cell.textContent = board.getContent(coords);
-  cell.onclick = () => handleClick(coords);
-  return cell;
-}
-
-function createCellsForRow(rowIdx, props) {
-  return createArray({
-    length: 3,
-    mapper: (_, colIdx) => createCellElement({ i: rowIdx, j: colIdx }, props),
-  });
-}
-
-function createRowElementWithCells(rowIdx, props) {
-  const row = document.createElement("div");
-  row.className = "row";
-  row.append(...createCellsForRow(rowIdx, props));
-  return row;
+  const cells = [];
+  for (let j = 0; j < 3; j++) {
+    const coords = { i, j };
+    const cell = document.createElement("div");
+    setClasslist(cell, ["cell", `marked-${board.getContent(coords)}`]);
+    cell.textContent = board.getContent(coords);
+    cell.onclick = () => handleClick(coords);
+    cells.push(cell);
+  }
+  return cells;
 }
 
 function createRows(props) {
-  return createArray({
-    length: 3,
-    mapper: (_, rowIdx) => createRowElementWithCells(rowIdx, props),
-  });
+  const rows = [];
+  for (let i = 0; i < 3; i++) {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.append(...createCellsForRow(i, props));
+    rows.push(row);
+  }
+  return rows;
 }
 
 function renderBoard(boardElement, gameState, handlers) {
