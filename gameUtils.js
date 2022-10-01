@@ -54,7 +54,7 @@ function getWinningPattern(board, forPlayer) {
   )[0];
 }
 
-function getRandomMove(board, makeMove) {
+function getRandomMove(board) {
   const emptyCell = getRandomEmptyCell(board);
   if (!emptyCell) throw new NoMovesError();
   return emptyCell;
@@ -66,14 +66,7 @@ function getMiddle() {
 
 function getMiddleIfEmptyElseGetRandom(board) {
   const middle = getMiddle(board);
-  const { i, j } = middle;
-  return board[i][j] === EMPTY ? middle : getRandomEmptyCell(board);
-}
-
-function selectMiddleIfPossibleElseSelectRandom(board, makeMove) {
-  const cell = getMiddleIfEmptyElseGetRandom(board)
-  const { i, j } = cell;
-  return makeMove(i, j);
+  return board[middle.i][middle.j] === EMPTY ? middle : getRandomMove(board);
 }
 
 function getWinningMove(board, forPlayer) {

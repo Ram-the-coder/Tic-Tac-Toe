@@ -1,10 +1,12 @@
 const aiMoveEasy = (game) => {
-  const { i, j } = getRandomMove(game.state.board, game.makeMove);
+  const { i, j } = getRandomMove(game.state.board);
   game.makeMove(i, j)
 }
 
-const aiMoveMedium = (game) =>
-  selectMiddleIfPossibleElseSelectRandom(game.state.board, game.makeMove);
+const aiMoveMedium = (game) => {
+  const { i, j } = getMiddleIfEmptyElseGetRandom(game.state.board, game.makeMove);
+  game.makeMove(i, j)
+}
 
 const aiMoveHard = (game) => {
   const { board, playerToPlay } = game.state;
@@ -16,7 +18,8 @@ const aiMoveHard = (game) => {
   if (moveToAvoidLoss)
     return game.makeMove(moveToAvoidLoss.i, moveToAvoidLoss.j);
 
-  return selectMiddleIfPossibleElseSelectRandom(board, game.makeMove);
+  const { i, j } = getMiddleIfEmptyElseGetRandom(board, game.makeMove);
+  return game.makeMove(i, j);
 };
 
 function aiMove(game) {
