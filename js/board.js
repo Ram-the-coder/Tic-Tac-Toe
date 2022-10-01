@@ -6,11 +6,11 @@ function createBoard(initState) {
       mapper: () => Array(3).fill(EMPTY),
     });
 
-  const deepCloneState = () => state.map(row => row.map(cell => cell))
+  const deepCloneState = () => state.map((row) => row.map((cell) => cell));
 
   const getContent = ({ i, j }) => state[i][j];
 
-  const setContent = ({i ,j, content}) => state[i][j] = content
+  const setContent = ({ i, j, content }) => (state[i][j] = content);
 
   const getCells = () =>
     state.map((row, i) => row.map((content, j) => ({ content, i, j }))).flat();
@@ -27,11 +27,11 @@ function createBoard(initState) {
   const isDraw = () => getCells().every(({ content }) => content != EMPTY);
 
   const getBoardAfterMove = (player, i, j) => {
-    if (getContent({i, j}) !== EMPTY) throw new InvalidMoveError();
-    const newBoard = createBoard(deepCloneState())
-    newBoard.setContent({ i, j, content: player})
+    if (getContent({ i, j }) !== EMPTY) throw new InvalidMoveError();
+    const newBoard = createBoard(deepCloneState());
+    newBoard.setContent({ i, j, content: player });
     return newBoard;
-  }
+  };
 
   return {
     get cells() {
@@ -46,6 +46,10 @@ function createBoard(initState) {
     isDraw,
     getContent,
     setContent,
-    getBoardAfterMove
+    getBoardAfterMove,
+    get middle() {
+      const coords = { i: 1, j: 1 };
+      return { ...coords, content: getContent(coords) };
+    },
   };
 }
