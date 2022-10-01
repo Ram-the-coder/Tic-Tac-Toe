@@ -12,7 +12,7 @@ const aiMoveHard = ({ board, playerToPlay }) => {
   return getMiddleIfEmptyElseGetRandom(board);
 };
 
-function aiMove(gameState) {
+function getAIsMove(gameState) {
   switch (gameState.difficulty) {
     case DIFFICULTY.EASY:
       return aiMoveEasy(gameState);

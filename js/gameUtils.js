@@ -75,3 +75,7 @@ function getWinningMove(board, forPlayer) {
     winningPattern && getTheMoveToCompleteThePattern(board, winningPattern)
   );
 }
+
+function isItAIsTurn(gameState) {
+  return (!gameState.isGameOver && gameState.playerToPlay === O)
+}

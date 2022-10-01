@@ -23,8 +23,8 @@ function createNewGame({ onCompleteTurn }) {
     updateState({ playerToPlay: otherPlayer(state.playerToPlay) });
     checkAndUpdateGameCompletionState();
     onCompleteTurn();
-    if (!state.isGameOver && state.playerToPlay === O) {
-      const { i, j } = aiMove(state)
+    if (isItAIsTurn(state)) {
+      const { i, j } = getAIsMove(state)
       makeMove(i, j);
     } 
   };
