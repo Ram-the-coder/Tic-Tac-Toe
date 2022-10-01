@@ -1,10 +1,8 @@
-const aiMoveEasy = (game) => getRandomMove(game.state.board);
+const aiMoveEasy = ({ board }) => getRandomMove(board);
 
-const aiMoveMedium = (game) => getMiddleIfEmptyElseGetRandom(game.state.board);
+const aiMoveMedium = ({ board }) => getMiddleIfEmptyElseGetRandom(board);
 
-const aiMoveHard = (game) => {
-  const { board, playerToPlay } = game.state;
-
+const aiMoveHard = ({ board, playerToPlay }) => {
   const winningMove = getWinningMove(board, playerToPlay);
   if (winningMove) return winningMove;
 
@@ -14,14 +12,14 @@ const aiMoveHard = (game) => {
   return getMiddleIfEmptyElseGetRandom(board);
 };
 
-function aiMove(game) {
-  switch (game.state.difficulty) {
+function aiMove(gameState) {
+  switch (gameState.difficulty) {
     case DIFFICULTY.EASY:
-      return aiMoveEasy(game);
+      return aiMoveEasy(gameState);
     case DIFFICULTY.MEDIUM:
-      return aiMoveMedium(game);
+      return aiMoveMedium(gameState);
     case DIFFICULTY.HARD:
-      return aiMoveHard(game);
+      return aiMoveHard(gameState);
     default:
       throw new Error("Invalid Difficulty");
   }

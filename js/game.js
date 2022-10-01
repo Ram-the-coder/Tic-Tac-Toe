@@ -24,7 +24,7 @@ function Game({ onCompleteTurn }) {
     this.checkGameCompletion();
     onCompleteTurn();
     if (!this.state.isGameOver && this.state.playerToPlay === O) {
-      const { i, j } = aiMove(this)
+      const { i, j } = aiMove(this.state)
       this.makeMove(i, j);
     } 
   };
