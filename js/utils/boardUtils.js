@@ -7,13 +7,13 @@ function getRandomEmptyCell(board) {
 }
 
 function getTheMoveToCompleteThePattern(board, pattern) {
-  return pattern.filter(({ i, j }) => board.getContent({ i, j }) === EMPTY)[0];
+  return pattern.filter((coords) => board.getContent(coords) === EMPTY)[0];
 }
 
 function getWinningPattern(board, forPlayer) {
   return WIN_PATTERNS.filter(
     (pattern) =>
-      pattern.filter(({ i, j }) => board.getContent({ i, j }) === forPlayer)
+      pattern.filter((coords) => board.getContent(coords) === forPlayer)
         .length === 2 && getTheMoveToCompleteThePattern(board, pattern)
   )[0];
 }

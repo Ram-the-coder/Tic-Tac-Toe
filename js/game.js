@@ -11,32 +11,35 @@ function createNewGame({ onCompleteTurn }) {
   const updateState = (updates) => setState({ ...state, ...updates });
 
   const checkAndUpdateGameCompletionState = () => {
-    const { winner } = state.board;
-    if (winner) updateState({ winner, isGameOver: true });
+    if (state.board.winner)
+      updateState({ winner: state.board.winner, isGameOver: true });
     if (state.board.isDraw()) updateState({ isGameOver: true });
+  };
+
+  const makeAIMove = (state) => {
+    makeMove(getAIsMove(state));
   };
 
   const completeTurn = () => {
     updateState({ playerToPlay: otherPlayer(state.playerToPlay) });
     checkAndUpdateGameCompletionState();
     onCompleteTurn();
-    if (isItAIsTurn(state)) {
-      const { i, j } = getAIsMove(state)
-      makeMove(i, j);
-    } 
+    if (isItAIsTurn(state)) makeAIMove(state);
   };
 
-  const makeMove = (i, j) => {
-    throwIfMoveIsInvalid(state, i, j);
+  const makeMove = (cell) => {
+    throwIfMoveIsInvalid(state, cell);
     updateState({
-      board: state.board.getBoardAfterMove(state.playerToPlay, i, j),
+      board: state.board.getBoardAfterMove(state.playerToPlay, cell),
     });
     completeTurn();
   };
 
   return {
-    get state() { return state },
+    get state() {
+      return state;
+    },
     updateState,
-    makeMove
-  }
+    makeMove,
+  };
 }

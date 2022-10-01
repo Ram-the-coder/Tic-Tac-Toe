@@ -12,13 +12,14 @@ function renderBoard(gameState, { handleClick }) {
       const cells = createArray({
         length: 3,
         mapper: (_, j) => {
-          const content = board.getContent({ i, j });
+          const coords = { i, j };
+          const content = board.getContent(coords);
           const cell = document.createElement("div");
           ["cell", `marked-${content}`].forEach((className) =>
             cell.classList.add(className)
           );
           cell.textContent = content;
-          cell.onclick = () => handleClick(i, j);
+          cell.onclick = () => handleClick(coords);
           return cell;
         },
       });

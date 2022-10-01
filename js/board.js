@@ -26,10 +26,10 @@ function createBoard(initState) {
 
   const isDraw = () => getCells().every(({ content }) => content != EMPTY);
 
-  const getBoardAfterMove = (player, i, j) => {
-    if (getContent({ i, j }) !== EMPTY) throw new InvalidMoveError();
+  const getBoardAfterMove = (player, coords) => {
+    if (getContent(coords) !== EMPTY) throw new InvalidMoveError();
     const newBoard = createBoard(deepCloneState());
-    newBoard.setContent({ i, j, content: player });
+    newBoard.setContent({ ...coords, content: player });
     return newBoard;
   };
 

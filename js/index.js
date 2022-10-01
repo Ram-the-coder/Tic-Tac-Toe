@@ -1,6 +1,6 @@
-function handleClick(i, j) {
+function handleClick(coords) {
   try {
-    window.game.makeMove(i, j);
+    window.game.makeMove(coords);
   } catch (e) {
     if (oneOfError(e, [InvalidMoveError, GameOverError])) return;
     else throw e;
