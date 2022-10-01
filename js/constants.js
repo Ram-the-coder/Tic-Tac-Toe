@@ -6,6 +6,9 @@ const DIFFICULTY = {
   MEDIUM: "1",
   HARD: "2",
 };
+const LOCAL_STORAGE_KEYS = {
+  DIFFICULTY: 'difficulty'
+}
 const WIN_PATTERNS = (() => {
   const horizontalPatterns = createArray({
     length: 3,

@@ -15,7 +15,7 @@
             <div class="controls">
                 <div class="diffculty-controls">
                     <label for="difficulty">Difficulty:</label>
-                    <select name="difficulty" id="difficulty" onchange="handleDifficultyChange(this.value)">
+                    <select name="difficulty" id="difficulty" onchange="updateDifficulty(this.value)">
                         <option value="0">Easy</option>
                         <option value="1">Medium</option>
                         <option value="2">Hard</option>
@@ -27,13 +27,16 @@
             </div>
         </div>
     </div>
-    <script src="errors.js"></script>
-    <script src="utils.js"></script>
-    <script src="constants.js"></script>
-    <script src="gameUtils.js"></script>
-    <script src="ai.js"></script>
-    <script src="game.js"></script>
-    <script src="renderUtils.js"></script>
-    <script src="index.js"></script>
+    <script src="js/errors.js"></script>
+    <script src="js/utils/generalUtils.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/utils/boardUtils.js"></script>
+    <script src="js/utils/gameUtils.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/utils/render/renderBoardUtils.js"></script>
+    <script src="js/utils/render/renderUtils.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
