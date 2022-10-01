@@ -29,7 +29,7 @@ function createNewGame({ onCompleteTurn }) {
   const makeMove = (i, j) => {
     throwIfMoveIsInvalid(state, i, j);
     updateState({
-      board: getBoardAfterMove(state.board, state.playerToPlay, i, j),
+      board: state.board.getBoardAfterMove(state.playerToPlay, i, j),
     });
     completeTurn();
   };

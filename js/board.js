@@ -6,9 +6,11 @@ function createBoard(initState) {
       mapper: () => Array(3).fill(EMPTY),
     });
 
-  const updateBoardState = ({ i, j, content }) => (state[i][j] = content);
+  const deepCloneState = () => state.map(row => row.map(cell => cell))
 
   const getContent = ({ i, j }) => state[i][j];
+
+  const setContent = ({i ,j, content}) => state[i][j] = content
 
   const getCells = () =>
     state.map((row, i) => row.map((content, j) => ({ content, i, j }))).flat();
@@ -24,6 +26,13 @@ function createBoard(initState) {
 
   const isDraw = () => getCells().every(({ content }) => content != EMPTY);
 
+  const getBoardAfterMove = (player, i, j) => {
+    if (getContent({i, j}) !== EMPTY) throw new InvalidMoveError();
+    const newBoard = createBoard(deepCloneState())
+    newBoard.setContent({ i, j, content: player})
+    return newBoard;
+  }
+
   return {
     get cells() {
       return getCells();
@@ -35,5 +44,7 @@ function createBoard(initState) {
       return getWinner();
     },
     isDraw,
+    setContent,
+    getBoardAfterMove
   };
 }

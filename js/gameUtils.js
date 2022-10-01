@@ -7,14 +7,6 @@ function throwIfMoveIsInvalid(gameState, i, j) {
   if (gameState.board.iterable[i][j] !== EMPTY) throw new InvalidMoveError();
 }
 
-function getBoardAfterMove(board, player, i, j) {
-  return createBoard(board.iterable.map((row, rowIndex) =>
-    rowIndex === i
-      ? row.map((cell, colIndex) => (colIndex === j ? player : cell))
-      : row)
-  );
-}
-
 function getEmptyCellCoordinates(board) {
   return board.iterable
     .map((row, i) =>
