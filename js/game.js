@@ -11,12 +11,12 @@ function createNewGame({ onCompleteTurn }) {
   const updateState = (updates) => setState({ ...state, ...updates });
 
   const checkWinAndUpdateState = () => {
-    const { winner } = state.board;
+    const winner = getWinner(state.board)
     if (winner) updateState({ winner, isGameOver: true });
   };
 
   const checkDrawAndUpdateState = () => {
-    if (state.board.isDraw()) updateState({ isGameOver: true });
+    if (isDraw(state.board)) updateState({ isGameOver: true });
   };
 
   const checkAndUpdateGameCompletionState = () => {

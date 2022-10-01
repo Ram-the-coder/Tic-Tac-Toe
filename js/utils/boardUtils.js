@@ -1,3 +1,12 @@
+const getWinner = (board) =>
+  [X, O].filter((player) =>
+    WIN_PATTERNS.some((pattern) =>
+      pattern.every((cell) => board.getContent(cell) === player)
+    )
+  )[0];
+
+const isDraw = (board) => board.cells.every(({ content }) => content != EMPTY);
+
 function getEmptyCells(board) {
   return board.cells.filter(({ content }) => content === EMPTY);
 }

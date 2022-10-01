@@ -15,15 +15,6 @@ function createBoard(initState) {
   const getCells = () =>
     state.map((row, i) => row.map((content, j) => ({ content, i, j }))).flat();
 
-  const getWinner = () =>
-    [X, O].filter((player) =>
-      WIN_PATTERNS.some((pattern) =>
-        pattern.every((cell) => getContent(cell) === player)
-      )
-    )[0];
-
-  const isDraw = () => getCells().every(({ content }) => content != EMPTY);
-
   const getBoardAfterMove = (player, coords) => {
     if (getContent(coords) !== EMPTY) throw new InvalidMoveError();
     const newBoard = createBoard(deepCloneState());
