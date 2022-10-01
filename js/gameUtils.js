@@ -1,13 +1,13 @@
 function getWinner(board) {
   return [X, O].filter((player) =>
     WIN_PATTERNS.some((pattern) =>
-      pattern.every(({ i, j }) => board[i][j] === player)
+      pattern.every(({ i, j }) => board.iterable[i][j] === player)
     )
   )[0];
 }
 
 function isDraw(board) {
-  return board.flat().every((cell) => cell != EMPTY);
+  return board.iterable.flat().every((cell) => cell != EMPTY);
 }
 
 function otherPlayer(player) {
@@ -16,19 +16,19 @@ function otherPlayer(player) {
 
 function throwIfMoveIsInvalid(gameState, i, j) {
   if (gameState.isGameOver) throw new GameOverError();
-  if (gameState.board[i][j] !== EMPTY) throw new InvalidMoveError();
+  if (gameState.board.iterable[i][j] !== EMPTY) throw new InvalidMoveError();
 }
 
 function getBoardAfterMove(board, player, i, j) {
-  return board.map((row, rowIndex) =>
+  return createBoard(board.iterable.map((row, rowIndex) =>
     rowIndex === i
       ? row.map((cell, colIndex) => (colIndex === j ? player : cell))
-      : row
+      : row)
   );
 }
 
 function getEmptyCellCoordinates(board) {
-  return board
+  return board.iterable
     .map((row, i) =>
       row
         .map((cell, j) => ({ i, j, cell }))
@@ -43,13 +43,13 @@ function getRandomEmptyCell(board) {
 }
 
 function getTheMoveToCompleteThePattern(board, pattern) {
-  return pattern.filter(({ i, j }) => board[i][j] === EMPTY)[0];
+  return pattern.filter(({ i, j }) => board.iterable[i][j] === EMPTY)[0];
 }
 
 function getWinningPattern(board, forPlayer) {
   return WIN_PATTERNS.filter(
     (pattern) =>
-      pattern.filter(({ i, j }) => board[i][j] === forPlayer).length === 2 &&
+      pattern.filter(({ i, j }) => board.iterable[i][j] === forPlayer).length === 2 &&
       getTheMoveToCompleteThePattern(board, pattern)
   )[0];
 }
@@ -66,7 +66,7 @@ function getMiddle() {
 
 function getMiddleIfEmptyElseGetRandom(board) {
   const middle = getMiddle(board);
-  return board[middle.i][middle.j] === EMPTY ? middle : getRandomMove(board);
+  return board.iterable[middle.i][middle.j] === EMPTY ? middle : getRandomMove(board);
 }
 
 function getWinningMove(board, forPlayer) {

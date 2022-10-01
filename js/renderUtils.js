@@ -12,7 +12,7 @@ function renderBoard(gameState, { handleClick }) {
       const cells = createArray({
         length: 3,
         mapper: (_, j) => {
-          const content = board[i][j];
+          const content = board.iterable[i][j];
           const cell = document.createElement("div");
           ["cell", `marked-${content}`].forEach((className) =>
             cell.classList.add(className)

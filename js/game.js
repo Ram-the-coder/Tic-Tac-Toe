@@ -1,10 +1,7 @@
 function createNewGame({ onCompleteTurn }) {
   let state = {
     playerToPlay: X,
-    board: createArray({
-      length: 3,
-      mapper: () => Array(3).fill(EMPTY),
-    }),
+    board: createBoard(),
     isGameOver: false,
     winner: null,
     difficulty: DIFFICULTY.EASY,
