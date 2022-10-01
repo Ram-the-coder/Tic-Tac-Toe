@@ -1,5 +1,4 @@
 function handleClick(i, j) {
-  console.log("handleClick", { i, j });
   try {
     window.game.makeMove(i, j);
   } catch (e) {

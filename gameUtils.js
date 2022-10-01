@@ -30,7 +30,9 @@ function getBoardAfterMove(board, player, i, j) {
 function getEmptyCellCoordinates(board) {
   return board
     .map((row, i) =>
-      row.map((cell, j) => ({ i, j, cell })).filter(({cell}) => cell === EMPTY)
+      row
+        .map((cell, j) => ({ i, j, cell }))
+        .filter(({ cell }) => cell === EMPTY)
     )
     .flat();
 }
@@ -54,15 +56,25 @@ function getWinningPattern(board, forPlayer) {
 
 function makeRandomMove(board, makeMove) {
   const emptyCell = getRandomEmptyCell(board);
-  if (!emptyCell) throw new Error('no empty spaces')
+  if (!emptyCell) throw new NoMovesError();
   const { i, j } = emptyCell;
   makeMove(i, j);
 }
 
+function getMiddle() {
+  return { i: 1, j: 1 };
+}
+
+function getMiddleIfEmptyElseGetRandom(board) {
+  const middle = getMiddle(board);
+  const { i, j } = middle;
+  return board[i][j] === EMPTY ? middle : getRandomEmptyCell(board);
+}
+
 function selectMiddleIfPossibleElseSelectRandom(board, makeMove) {
-  return board[1][1] === EMPTY
-    ? makeMove(1, 1)
-    : makeRandomMove(board, makeMove);
+  const cell = getMiddleIfEmptyElseGetRandom(board)
+  const { i, j } = cell;
+  return makeMove(i, j);
 }
 
 function getWinningMove(board, forPlayer) {
