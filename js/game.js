@@ -1,5 +1,5 @@
-function Game({ onCompleteTurn }) {
-  this.state = {
+function createNewGame({ onCompleteTurn }) {
+  let state = {
     playerToPlay: X,
     board: createArray({
       length: 3,
@@ -10,30 +10,36 @@ function Game({ onCompleteTurn }) {
     difficulty: DIFFICULTY.EASY,
   };
 
-  this.setState = (state) => (this.state = state);
-  this.updateState = (updates) => this.setState({ ...this.state, ...updates });
+  const setState = (newState) => (state = newState);
+  const updateState = (updates) => setState({ ...state, ...updates });
 
-  this.checkGameCompletion = () => {
-    const winner = getWinner(this.state.board);
-    if (winner) this.updateState({ winner, isGameOver: true });
-    if (isDraw(this.state.board)) this.updateState({ isGameOver: true });
+  const checkAndUpdateGameCompletionState = () => {
+    const winner = getWinner(state.board);
+    if (winner) updateState({ winner, isGameOver: true });
+    if (isDraw(state.board)) updateState({ isGameOver: true });
   };
 
-  this.completeTurn = () => {
-    this.updateState({ playerToPlay: otherPlayer(this.state.playerToPlay) });
-    this.checkGameCompletion();
+  const completeTurn = () => {
+    updateState({ playerToPlay: otherPlayer(state.playerToPlay) });
+    checkAndUpdateGameCompletionState();
     onCompleteTurn();
-    if (!this.state.isGameOver && this.state.playerToPlay === O) {
-      const { i, j } = aiMove(this.state)
-      this.makeMove(i, j);
+    if (!state.isGameOver && state.playerToPlay === O) {
+      const { i, j } = aiMove(state)
+      makeMove(i, j);
     } 
   };
 
-  this.makeMove = (i, j) => {
-    throwIfMoveIsInvalid(this.state, i, j);
-    this.updateState({
-      board: getBoardAfterMove(this.state.board, this.state.playerToPlay, i, j),
+  const makeMove = (i, j) => {
+    throwIfMoveIsInvalid(state, i, j);
+    updateState({
+      board: getBoardAfterMove(state.board, state.playerToPlay, i, j),
     });
-    this.completeTurn();
+    completeTurn();
   };
+
+  return {
+    get state() { return state },
+    updateState,
+    makeMove
+  }
 }

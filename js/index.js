@@ -21,7 +21,7 @@ function initializeDifficulty() {
 }
 
 function startNewGame() {
-  window.game = new Game({
+  window.game = createNewGame({
     onCompleteTurn: () => render(window.game.state, { handleClick }),
   });
   initializeDifficulty();
