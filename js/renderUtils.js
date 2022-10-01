@@ -2,8 +2,8 @@ function renderBoard(gameState, { handleClick }) {
   const { board, isGameOver } = gameState;
   const boardElement = document.querySelector(".board");
   boardElement.textContent = "";
-  if (isGameOver) boardElement.classList.add('game-over')
-  else boardElement.classList.remove('game-over')
+  if (isGameOver) boardElement.classList.add("game-over");
+  else boardElement.classList.remove("game-over");
   const rows = createArray({
     length: 3,
     mapper: (_, i) => {
@@ -12,7 +12,7 @@ function renderBoard(gameState, { handleClick }) {
       const cells = createArray({
         length: 3,
         mapper: (_, j) => {
-          const content = board.iterable[i][j];
+          const content = board.getContent({ i, j });
           const cell = document.createElement("div");
           ["cell", `marked-${content}`].forEach((className) =>
             cell.classList.add(className)
@@ -36,7 +36,7 @@ function renderInfo(gameState) {
     if (!isGameOver) return `${playerToPlay}'s Turn`;
     if (winner) return `${winner} Won!`;
     return `Draw`;
-  })()
+  })();
 }
 
 function render(gameState, { handleClick }) {

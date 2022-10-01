@@ -4,11 +4,12 @@ function otherPlayer(player) {
 
 function throwIfMoveIsInvalid(gameState, i, j) {
   if (gameState.isGameOver) throw new GameOverError();
-  if (gameState.board.iterable[i][j] !== EMPTY) throw new InvalidMoveError();
+  if (gameState.board.getContent({ i, j }) !== EMPTY)
+    throw new InvalidMoveError();
 }
 
 function getEmptyCells(board) {
-  return board.cells.filter(({content}) => content === EMPTY);
+  return board.cells.filter(({ content }) => content === EMPTY);
 }
 function getRandomEmptyCell(board) {
   const emptyCells = getEmptyCells(board);
@@ -16,14 +17,14 @@ function getRandomEmptyCell(board) {
 }
 
 function getTheMoveToCompleteThePattern(board, pattern) {
-  return pattern.filter(({ i, j }) => board.iterable[i][j] === EMPTY)[0];
+  return pattern.filter(({ i, j }) => board.getContent({ i, j }) === EMPTY)[0];
 }
 
 function getWinningPattern(board, forPlayer) {
   return WIN_PATTERNS.filter(
     (pattern) =>
-      pattern.filter(({ i, j }) => board.iterable[i][j] === forPlayer).length === 2 &&
-      getTheMoveToCompleteThePattern(board, pattern)
+      pattern.filter(({ i, j }) => board.getContent({ i, j }) === forPlayer)
+        .length === 2 && getTheMoveToCompleteThePattern(board, pattern)
   )[0];
 }
 
@@ -39,7 +40,7 @@ function getMiddle() {
 
 function getMiddleIfEmptyElseGetRandom(board) {
   const middle = getMiddle(board);
-  return board.iterable[middle.i][middle.j] === EMPTY ? middle : getRandomMove(board);
+  return board.getContent(middle) === EMPTY ? middle : getRandomMove(board);
 }
 
 function getWinningMove(board, forPlayer) {
@@ -50,5 +51,5 @@ function getWinningMove(board, forPlayer) {
 }
 
 function isItAIsTurn(gameState) {
-  return (!gameState.isGameOver && gameState.playerToPlay === O)
+  return !gameState.isGameOver && gameState.playerToPlay === O;
 }

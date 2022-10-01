@@ -44,6 +44,7 @@ function createBoard(initState) {
       return getWinner();
     },
     isDraw,
+    getContent,
     setContent,
     getBoardAfterMove
   };
