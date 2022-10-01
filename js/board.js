@@ -15,8 +15,6 @@ function createBoard(initState) {
   const getCells = () =>
     state.map((row, i) => row.map((content, j) => ({ content, i, j }))).flat();
 
-  const getIterable = () => state;
-
   const getWinner = () =>
     [X, O].filter((player) =>
       WIN_PATTERNS.some((pattern) =>
@@ -36,9 +34,6 @@ function createBoard(initState) {
   return {
     get cells() {
       return getCells();
-    },
-    get iterable() {
-      return getIterable();
     },
     get winner() {
       return getWinner();

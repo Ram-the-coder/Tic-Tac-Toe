@@ -10,10 +10,18 @@ function createNewGame({ onCompleteTurn }) {
   const setState = (newState) => (state = newState);
   const updateState = (updates) => setState({ ...state, ...updates });
 
-  const checkAndUpdateGameCompletionState = () => {
-    if (state.board.winner)
-      updateState({ winner: state.board.winner, isGameOver: true });
+  const checkWinAndUpdateState = () => {
+    const { winner } = state.board;
+    if (winner) updateState({ winner, isGameOver: true });
+  };
+
+  const checkDrawAndUpdateState = () => {
     if (state.board.isDraw()) updateState({ isGameOver: true });
+  };
+
+  const checkAndUpdateGameCompletionState = () => {
+    checkWinAndUpdateState();
+    checkDrawAndUpdateState();
   };
 
   const makeAIMove = (state) => {
@@ -28,7 +36,7 @@ function createNewGame({ onCompleteTurn }) {
   };
 
   const makeMove = (cell) => {
-    throwIfMoveIsInvalid(state, cell);
+    if (state.isGameOver) throw new GameOverError();
     updateState({
       board: state.board.getBoardAfterMove(state.playerToPlay, cell),
     });
